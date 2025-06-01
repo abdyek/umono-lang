@@ -78,6 +78,21 @@ func (s *umonoLangTestSuite) TestConvert() {
 		{"023", func(ul string) string {
 			return ul
 		}},
+		{"024", func(ul string) string {
+			return ul
+		}},
+		{"025", func(ul string) string {
+			return ul
+		}},
+		{"026", func(ul string) string {
+			return ul
+		}},
+		{"027", func(ul string) string {
+			return ul
+		}},
+		{"028", func(ul string) string {
+			return ul
+		}},
 	} {
 		inputCont, err := inputFileReader.Read(scene.file, false)
 		require.Nil(s.T(), err)

@@ -144,11 +144,36 @@ func (s *callTestSuite) TestReadCalls() {
 				},
 			},
 		},
+		{
+			"\\{{ ABC }}",
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{},
+		},
+		{
+			"\\\\{{ ABC }}",
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{
+				&call{components.NewCustom("ABC", "no-matter"), 0, 9, []interfaces.Argument{}},
+			},
+		},
+		{
+			"\\\\\\{{ ABC }}",
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{},
+		},
 	} {
 
 		calls := readCalls(scene.content, scene.comps)
 
 		errMsg := "scene index: " + strconv.Itoa(sI)
+
+		require.Equal(s.T(), len(scene.results), len(calls), errMsg+" | Not equal scene results with calls.")
 
 		for i := 0; i < len(scene.results); i++ {
 
