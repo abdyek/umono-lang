@@ -145,23 +145,46 @@ func (s *callTestSuite) TestReadCalls() {
 			},
 		},
 		{
-			"\\{{ ABC }}",
+			`\{{ ABC }}`,
 			[]interfaces.Component{
 				components.NewCustom("ABC", "no-matter"),
 			},
 			[]*call{},
 		},
 		{
-			"\\\\{{ ABC }}",
+			`\\{{ ABC }}`,
 			[]interfaces.Component{
 				components.NewCustom("ABC", "no-matter"),
 			},
 			[]*call{
-				&call{components.NewCustom("ABC", "no-matter"), 0, 9, []interfaces.Argument{}},
+				&call{components.NewCustom("ABC", "no-matter"), 2, 11, []interfaces.Argument{}},
 			},
 		},
 		{
-			"\\\\\\{{ ABC }}",
+			`\\\{{ ABC }}`,
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{},
+		},
+		{
+			`\ABC`,
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{},
+		},
+		{
+			`\\ABC`,
+			[]interfaces.Component{
+				components.NewCustom("ABC", "no-matter"),
+			},
+			[]*call{
+				&call{components.NewCustom("ABC", "no-matter"), 2, 5, []interfaces.Argument{}},
+			},
+		},
+		{
+			`\\\ABC`,
 			[]interfaces.Component{
 				components.NewCustom("ABC", "no-matter"),
 			},
